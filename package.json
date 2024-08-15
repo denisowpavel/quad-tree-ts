@@ -12,5 +12,8 @@
     "TS"
   ],
   "author": "Pavel Denisow",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "3.3.3"
+  }
 }
