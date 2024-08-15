@@ -1,6 +1,6 @@
-import { IBounds, IPoint } from './Interfaces';
-import { Node } from './Node';
-import { BoundsNode } from './BoundsNode';
+import { IBounds, IPoint } from "./Interfaces";
+import { Node } from "./Node";
+import { BoundsNode } from "./BoundsNode";
 
 /**
  * QuadTree data structure.
@@ -28,6 +28,7 @@ export class QuadTree {
     maxDepth: number = 4,
     maxChildren: number = 0,
   ) {
+    //TODO: PointQuad mode should be implemented, not ready yet
     if (pointQuad) {
       this.root = new Node(bounds, 0, maxDepth, maxChildren);
     } else {
