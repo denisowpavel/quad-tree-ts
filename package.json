@@ -1,0 +1,16 @@
+{
+  "name": "quad-tree-ts",
+  "version": "0.9.0",
+  "description": "TypeScript Port of Mikes Chambers project of JS implementation QuadTree",
+  "main": "QuadTree.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "QuadTree",
+    "TypeScript",
+    "TS"
+  ],
+  "author": "Pavel Denisow",
+  "license": "MIT"
+}
