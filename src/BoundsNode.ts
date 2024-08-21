@@ -1,5 +1,5 @@
-import { Node } from './Node';
-import { IBounds } from './Interfaces'; // Adjust the import path as necessary
+import { Node } from "./Node";
+import { IBounds } from "./Interfaces"; // Adjust the import path as necessary
 
 export class BoundsNode extends Node {
   private _stuckChildren: IBounds[] = [];
@@ -14,10 +14,13 @@ export class BoundsNode extends Node {
     super(bounds, depth, maxChildren, maxDepth);
   }
 
-  insert(item: IBounds): void {
+  override insert(item: IBounds): void {
     if (this.nodes.length) {
       const index = this._findIndex(item);
       const node = this.nodes[index];
+      if (!node) {
+        return;
+      }
 
       if (
         item.x >= node._bounds.x &&
@@ -25,7 +28,7 @@ export class BoundsNode extends Node {
         item.y >= node._bounds.y &&
         item.y + item.height <= node._bounds.y + node._bounds.height
       ) {
-        this.nodes[index].insert(item);
+        this.nodes[index]?.insert(item);
       } else {
         this._stuckChildren.push(item);
       }
@@ -40,7 +43,7 @@ export class BoundsNode extends Node {
       this.subdivide();
 
       for (let i = 0; i < len; i++) {
-        this.insert(this.children[i]);
+        this.insert(this.children[i] as IBounds);
       }
 
       this.children.length = 0;
@@ -51,12 +54,15 @@ export class BoundsNode extends Node {
     return this.children.concat(this._stuckChildren);
   }
 
-  retrieve(item: IBounds): IBounds[] {
+  override retrieve(item: IBounds): IBounds[] {
     const out = this._out;
     out.length = 0;
     if (this.nodes.length) {
       const index = this._findIndex(item);
-      out.push(...this.nodes[index].retrieve(item));
+      const node = this.nodes[index];
+      if (node) {
+        out.push(...node.retrieve(item));
+      }
     }
 
     out.push(...this._stuckChildren);
@@ -65,7 +71,7 @@ export class BoundsNode extends Node {
     return out;
   }
 
-  clear(): void {
+  override clear(): void {
     this._stuckChildren.length = 0;
     this.children.length = 0;
 
@@ -76,7 +82,7 @@ export class BoundsNode extends Node {
     }
 
     for (let i = 0; i < len; i++) {
-      this.nodes[i].clear();
+      this.nodes[i]?.clear();
     }
 
     //array

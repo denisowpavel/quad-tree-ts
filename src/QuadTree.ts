@@ -46,7 +46,9 @@ export class QuadTree {
     if (Array.isArray(item)) {
       const len = item.length;
       for (let i = 0; i < len; i++) {
-        this.root.insert(item[i]);
+        if(item[i]){
+          this.root.insert(item[i] as IBounds);
+        }
       }
     } else {
       this.root.insert(item);

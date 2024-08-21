@@ -37,7 +37,7 @@ export class Node {
   insert(item: IBounds): void {
     if (this.nodes.length) {
       const index = this._findIndex(item);
-      this.nodes[index].insert(item);
+      this.nodes[index]?.insert(item);
       return;
     }
 
@@ -48,7 +48,7 @@ export class Node {
       this.subdivide();
 
       for (let i = 0; i < len; i++) {
-        this.insert(this.children[i]);
+        this.insert(this.children[i] as IBounds);
       }
 
       this.children.length = 0;
@@ -58,7 +58,7 @@ export class Node {
   retrieve(item: IPoint): IBounds[] {
     if (this.nodes.length) {
       const index = this._findIndex(item);
-      return this.nodes[index].retrieve(item);
+      return this.nodes[index] ? this.nodes[index].retrieve(item) : [];
     }
 
     return this.children;
@@ -142,7 +142,7 @@ export class Node {
 
     const len = this.nodes.length;
     for (let i = 0; i < len; i++) {
-      this.nodes[i].clear();
+      this.nodes[i]?.clear();
     }
 
     this.nodes.length = 0;
